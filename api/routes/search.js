@@ -1,18 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const City = require('../models/City')
+const cors = require('cors');
 
-router.get('/location', async(req, res) => {
+router.use(cors());
+
+router.get('/', async(req, res) => {
+    console.log(req.query);
+
     if(req.query.search === '' || req.query.search === undefined) {
         res.send(400);
+        return
     }
+
+    console.log(req.query.search)
 
     let searchPayload = req.query.search.trim().toLowerCase() //
     let payload = []
 
     try {
         var docs = await City.find({}).exec();
-            
          for(let doc of docs) {
             //console.log(doc)
             switch(true){
@@ -41,5 +48,6 @@ router.get('/location', async(req, res) => {
     }
     res.json(payload);
 });
+
 
 module.exports = router

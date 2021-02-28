@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './views/Home'
+import Home from './views/Home.jsx'
 
 import './App.css';
 
@@ -14,15 +14,7 @@ function App() {
       <Router>
         <div>
           <nav>
-            <span>Weather Check</span>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/city/">City</Link>
-              </li>
-            </ul>
+            <Link to="/">Weather Check</Link>
           </nav>
 
           {/* A <Switch> looks through its children <Route>s and
