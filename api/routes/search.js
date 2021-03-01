@@ -6,14 +6,11 @@ const cors = require('cors');
 router.use(cors());
 
 router.get('/', async(req, res) => {
-    console.log(req.query);
 
     if(req.query.search === '' || req.query.search === undefined) {
         res.send(400);
         return
     }
-
-    console.log(req.query.search)
 
     let searchPayload = req.query.search.trim().toLowerCase() //
     let payload = []
@@ -21,7 +18,6 @@ router.get('/', async(req, res) => {
     try {
         var docs = await City.find({}).exec();
          for(let doc of docs) {
-            //console.log(doc)
             switch(true){
                 case doc.city.substr(0, searchPayload.length).toLowerCase() === searchPayload:
                     payload.push(doc);

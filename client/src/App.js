@@ -1,44 +1,43 @@
+import Home from './views/Home.jsx'
+import City from './views/City.jsx'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
+  useHistory,
   Link
 } from "react-router-dom";
-import Home from './views/Home.jsx'
-
 import './App.css';
 
 function App() {
+  let history = useHistory();
+
+  const handleHistory = (path) => {
+    history.push(path);
+  } 
+
   return (
     <div className="App">
-      <Router>
-        <div>
-          <nav>
-            <Link to="/">Weather Check</Link>
-          </nav>
+      <div>
+        <nav>
+          <Link id="title" to="/">Weather Check</Link>
+        </nav>
 
-          {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <div>
           <Switch>
-            <Route path="/city">
+            <Route path="/city/">
               <City />
             </Route>
             <Route path="/">
-              <Home />
+              <Home history={handleHistory} />
             </Route>
           </Switch>
         </div>
-      </Router>
+      </div>
     </div>
   );
 }
-
-
-
-function City() {
-  return <h2>City</h2>;
-}
-
 
 
 export default App;

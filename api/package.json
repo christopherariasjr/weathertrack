@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node .",
+    "start": "node addcities.js && node . ",
+    "add": "node addcities.js",
     "dev": "nodemon ."
   },
   "author": "Christopher Arias",

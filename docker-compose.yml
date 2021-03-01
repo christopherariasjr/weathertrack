@@ -1,0 +1,36 @@
+version: '3.3'
+
+services: 
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports: 
+      - 27017:17017
+  
+  api:
+    container_name: weather-track-api
+    image: weather-track-api
+    build:
+      context: ./api
+      dockerfile: dockerfile
+    volumes: 
+      - ./api:/usr/app
+    ports:
+      - 5000:5000
+    depends_on: 
+      - mongo
+    environment: 
+      - MONGO_URL=mongodb://localhost:27017/weathercheck
+  
+  client:
+    container_name: weather-track-client
+    image: weather-track-client
+    build:
+      context: ./client
+      dockerfile: dockerfile
+    volumes: 
+      - ./client:/usr/app
+    ports: 
+      - 80:80
+    depends_on:
+      - api

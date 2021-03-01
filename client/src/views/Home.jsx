@@ -1,53 +1,89 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {
+    Redirect    
+  } from "react-router-dom";
 import axios from 'axios'
 
-export default class Home extends React.Component {
+export default class Home extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
-            searchPayload: '',
-            searchResults: []
+            searchResults: [],
+            loading: false
         }
-
-        this.handleChange = this.handleChange.bind(this);
+        this.search = this.search.bind(this)
     }
-    
-    async handleChange(event) {
-        this.setState({searchPayload: event.target.value});
 
-        if(event.target.value !== '') {
-            let results = await axios.get(`http://localhost:5000/api/v1/search?search=${event.target.value}`)
-                .then(doc => doc.data)
+    toCity(_id) {        
+        this.props.history(`/city/${_id}`)
+    }
 
-            this.setState({searchResults: results});
-        }
-         
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     displayResults() {
+        const results = this.state.searchResults.map(item => {
+            return (
+                <li className="search-result card" key={item._id} value={item._id} onClick={() => this.toCity(item._id)}>
+                    <h4>{this.capitalizeFirstLetter(item.city)}</h4>
+                    <span>{this.capitalizeFirstLetter(item.state)}</span>
+                </li>
+            )
+        })
 
+        return results
     }
+
+  
+    async search(e) {
+        if (e.key === 'Enter') {
+        this.setState({loading: true});
+        let results = await axios.get(`http://localhost:5000/api/v1/search?search=${e.target.value}`)
+            .then(doc => doc.data)
+        this.setState({
+                searchResults: results,
+                loading: false 
+            });
+        }
+    }
+
+     main() {
+        return (
+            <div className="container">
+                {this.state.searchResults.length === 0 ? <p>No Results Found.</p> : <ul>{this.displayResults()}</ul>}
+            </div>
+        )   
+     }
+
+    loading() {
+        return (
+            <div className="loading-container">
+                <span className="loading">Loading...</span>
+            </div>
+        )
+    }
+        
 
     render() {
         return (
             <>
-                <div className="container">
+                <div>
                     <header>
-                        <div className="card">
-    
+                        <div className="title-container">
+                            <h1 className="headerTitle">天気予報...</h1>
+                        </div>
+                        <div className="search-container">
+                        <input type="text" placeholder='Search City...' onKeyDown={this.search} />
                         </div>
                     </header>
-                    <div>
-                        <input value={this.state.searchPayload} onChange={this.handleChange} />
-                    </div>
-                    <div>
-                        {if(searchResults.length > 0)}
-                    </div>
+                    {this.state.loading ? this.loading() : this.main()}
                 </div>
             </>
         )
     }
 
   }
+  
