@@ -1,19 +1,26 @@
 {
-  "name": "weathercheck-api",
+  "name": "weathertrack-api",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node addcities.js && node . ",
-    "add": "node addcities.js",
-    "dev": "nodemon ."
+    "start": "node . "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christopherariasjr/weathertrack-api.git"
   },
   "author": "Christopher Arias",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christopherariasjr/weathertrack-api/issues"
+  },
+  "homepage": "https://github.com/christopherariasjr/weathertrack-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "8.0.0",
+    "dotenv-extended": "^2.9.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.16"
+    "mongoose": "5.11.15"
   }
 }
