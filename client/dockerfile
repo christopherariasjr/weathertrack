@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . /app
 # install node modules and build assets
 RUN npm install --silent
-RUN npm run build
+RUN npm run build --silent
 
 # nginx state for serving content
 FROM nginx:alpine
