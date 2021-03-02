@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <div>
         <nav>
-          <Link id="title" to="/">Weather Check</Link>
+          <Link id="title" to="/">Weathetrack</Link>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
