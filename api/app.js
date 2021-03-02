@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config()
 
 //City data from https://simplemaps.com/data/us-cities
-mongoose.connect(`mongodb://127.0.0.1:27017/weathercheck`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_PWD}@ariaslabs-west.bawjw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(cors());
 

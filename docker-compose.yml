@@ -1,10 +1,6 @@
 version: '3.3'
 
-services: 
-  mongo:
-    container_name: mongo
-    image: mongo
-  
+services:   
   api:
     container_name: weather-track-api
     image: weather-track-api
@@ -15,8 +11,6 @@ services:
       - ./api:/usr/app
     ports:
       - 5000:5000
-    depends_on: 
-      - mongo
   
   client:
     container_name: weather-track-client
