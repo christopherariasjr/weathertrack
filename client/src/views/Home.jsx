@@ -41,7 +41,7 @@ export default class Home extends Component {
     async search(e) {
         if (e.key === 'Enter') {
         this.setState({loading: true});
-        let IP = process.env.PORT || '127.0.0.1'
+        let IP = '164.90.148.191'
 
         let results = await axios.get(`http://${IP}:5000/api/v1/search?search=${e.target.value}`)
             .then(doc => doc.data)
