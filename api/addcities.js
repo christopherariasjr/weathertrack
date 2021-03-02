@@ -1,9 +1,5 @@
-const mongoose = require('mongoose')
 require('dotenv').config()
 //City data from https://simplemaps.com/data/us-cities
-const dbURL = 'mongodb://localhost:27017/weathercheck'
-
-mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 var City = require('./models/City')
 
@@ -27,23 +23,24 @@ var City = require('./models/City')
         await newCity.save();
     }
 
-    mongoose.connection.close()
 }
-(async () => {
+var checkCities = async () => {
     console.log('Checking City list')
-    var results = await City.find({}).then(docs => docs)
-    console.log('Cities: ' + results.length);
-    if(results.length === 0) {
-        console.log("Adding Cites");
-        process();
+    try{
+        var results = await City.find({}).then(docs => docs)
+        console.log('Cities: ' + results.length);
+        if(results.length === 0) {
+            console.log("Adding Cites");
+            process();
+        }  
+    } catch(err) {
+        console.log(err);
     }
+    
     console.log('BYE!')
-    mongoose.connection.close()
+}
 
-})()
-
-
-
+module.exports = checkCities;
 
 //
 
