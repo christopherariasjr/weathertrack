@@ -26,8 +26,6 @@ export default function City() {
             }
         }
 
-        let IP = '164.90.148.191'
-
         const cityResults = await axios.get(`http://weathertrack.ariaslabs.com:5000/api/v1/city?_id=${state._id}`).then(res => res.data)
         const weatherResults = await axios.get(`https://api.weather.gov/points/${cityResults.lat},${cityResults.lng}/forecast/hourly`, configs)
             .then(res => res.data)
@@ -40,7 +38,7 @@ export default function City() {
             currentTemp: weatherResults.properties.periods[0].temperature,
             tempIcon: weatherResults.properties.periods[0].icon,
             shortForecast: weatherResults.properties.periods[0].shortForecast
-        })   
+        }); 
     }
     getCityDetails()
 
